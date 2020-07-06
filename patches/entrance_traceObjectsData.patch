@@ -1,0 +1,32 @@
+diff --git a/src/platform/loading/codecs/ObjectsDataCodec.class.asasm b/src/platform/loading/codecs/ObjectsDataCodec.class.asasm
+index f43cb94..f83aa2c 100644
+--- a/src/platform/loading/codecs/ObjectsDataCodec.class.asasm
++++ b/src/platform/loading/codecs/ObjectsDataCodec.class.asasm
+@@ -126,6 +126,10 @@ class
+       getlocal0
+       pushscope
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "*** ObjectsDataCodec::decode ***"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       findpropstrict      QName(PackageNamespace("platform.client.core.general.spaces.loading.dispatcher.types"), "ObjectsData")
+       constructprop       QName(PackageNamespace("platform.client.core.general.spaces.loading.dispatcher.types"), "ObjectsData"), 0
+       coerce              QName(PackageNamespace("platform.client.core.general.spaces.loading.dispatcher.types"), "ObjectsData")
+@@ -288,6 +292,16 @@ L32:
+       throw
+ 
+ L51:
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "*** ObjectsDataCodec::readObject ***"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "class="
++      getlocal            5
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       getlocal            4
+       getlocal2
+       getlocal            5

@@ -1,0 +1,562 @@
+diff --git a/src/alternativa/tanks/models/map/BattleMapModel.class.asasm b/src/alternativa/tanks/models/map/BattleMapModel.class.asasm
+index 071d587..1e8e792 100644
+--- a/src/alternativa/tanks/models/map/BattleMapModel.class.asasm
++++ b/src/alternativa/tanks/models/map/BattleMapModel.class.asasm
+@@ -32,7 +32,7 @@ class
+     refid "alternativa.tanks.models.map:BattleMapModel/instance/getMapResource"
+     returns QName(PackageNamespace("projects.tanks.clients.flash.resources.resource"), "MapResource")
+     body
+-     maxstack 1
++     maxstack 2
+      localcount 1
+      initscopedepth 6
+      maxscopedepth 7
+@@ -40,6 +40,11 @@ class
+       getlocal0
+       pushscope
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      findpropstrict      QName(ProtectedNamespace("projects.tanks.client.battlefield.models.map:BattleMapModelBase"), "getInitParam")
++      callproperty        QName(ProtectedNamespace("projects.tanks.client.battlefield.models.map:BattleMapModelBase"), "getInitParam"), 0
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       findpropstrict      QName(ProtectedNamespace("projects.tanks.client.battlefield.models.map:BattleMapModelBase"), "getInitParam")
+       callproperty        QName(ProtectedNamespace("projects.tanks.client.battlefield.models.map:BattleMapModelBase"), "getInitParam"), 0
+       getproperty         QName(PackageNamespace(""), "mapResource")
+diff --git a/src/projects/tanks/client/battlefield/models/map/BattleMapCC.class.asasm b/src/projects/tanks/client/battlefield/models/map/BattleMapCC.class.asasm
+index 1af5efc..9c98a74 100644
+--- a/src/projects/tanks/client/battlefield/models/map/BattleMapCC.class.asasm
++++ b/src/projects/tanks/client/battlefield/models/map/BattleMapCC.class.asasm
+@@ -559,122 +559,120 @@ class
+       getlocal0
+       pushscope
+ 
+-      pushstring          "BattleMapCC ["
++      pushstring          "{"
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "dustParams = "
++      pushstring          "\"dustParams\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "dustParams")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "dynamicShadowParams = "
++      pushstring          "\"dynamicShadowParams\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "dynamicShadowParams")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "environmentSound = "
++      pushstring          "\"environmentSound\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "environmentSound")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "fogParams = "
++      pushstring          "\"fogParams\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "fogParams")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "gravity = "
++      pushstring          "\"gravity\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "gravity")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "mapResource = "
++      pushstring          "\"mapResource\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "mapResource")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "skyBoxRevolutionAxis = "
++      pushstring          "\"skyBoxRevolutionAxis\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "skyBoxRevolutionAxis")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "skyBoxRevolutionSpeed = "
++      pushstring          "\"skyBoxRevolutionSpeed\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "skyBoxRevolutionSpeed")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "skyboxSides = "
++      pushstring          "\"skyboxSides\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "skyboxSides")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "ssaoColor = "
++      pushstring          "\"ssaoColor\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "ssaoColor")
+       add
+-      pushstring          " "
+-      add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "]"
++      pushstring          "}"
+       add
+       coerce_s
+       setlocal1
+diff --git a/src/projects/tanks/client/battlefield/models/map/DustParams.class.asasm b/src/projects/tanks/client/battlefield/models/map/DustParams.class.asasm
+index ff3721e..6a86353 100644
+--- a/src/projects/tanks/client/battlefield/models/map/DustParams.class.asasm
++++ b/src/projects/tanks/client/battlefield/models/map/DustParams.class.asasm
+@@ -351,78 +351,76 @@ class
+       getlocal0
+       pushscope
+ 
+-      pushstring          "DustParams ["
++      pushstring          "{"
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "alpha = "
++      pushstring          "\"alpha\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "alpha")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "density = "
++      pushstring          "\"density\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "density")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "dustFarDistance = "
++      pushstring          "\"dustFarDistance\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "dustFarDistance")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "dustNearDistance = "
++      pushstring          "\"dustNearDistance\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "dustNearDistance")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "dustParticle = "
++      pushstring          "\"dustParticle\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "dustParticle")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "dustSize = "
++      pushstring          "\"dustSize\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "dustSize")
+       add
+-      pushstring          " "
+-      add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "]"
++      pushstring          "}"
+       add
+       coerce_s
+       setlocal1
+diff --git a/src/projects/tanks/client/battlefield/models/map/DynamicShadowParams.class.asasm b/src/projects/tanks/client/battlefield/models/map/DynamicShadowParams.class.asasm
+index 61d5cb1..83d7ad4 100644
+--- a/src/projects/tanks/client/battlefield/models/map/DynamicShadowParams.class.asasm
++++ b/src/projects/tanks/client/battlefield/models/map/DynamicShadowParams.class.asasm
+@@ -247,56 +247,54 @@ class
+       getlocal0
+       pushscope
+ 
+-      pushstring          "DynamicShadowParams ["
++      pushstring          "{"
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "angleX = "
++      pushstring          "\"angleX\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "angleX")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "angleZ = "
++      pushstring          "\"angleZ\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "angleZ")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "lightColor = "
++      pushstring          "\"lightColor\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "lightColor")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "shadowColor = "
++      pushstring          "\"shadowColor\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "shadowColor")
+       add
+-      pushstring          " "
+-      add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "]"
++      pushstring          "}"
+       add
+       coerce_s
+       setlocal1
+diff --git a/src/projects/tanks/client/battlefield/models/map/FogParams.class.asasm b/src/projects/tanks/client/battlefield/models/map/FogParams.class.asasm
+index 82f11a0..1dad0e6 100644
+--- a/src/projects/tanks/client/battlefield/models/map/FogParams.class.asasm
++++ b/src/projects/tanks/client/battlefield/models/map/FogParams.class.asasm
+@@ -247,56 +247,54 @@ class
+       getlocal0
+       pushscope
+ 
+-      pushstring          "FogParams ["
++      pushstring          "{"
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "alpha = "
++      pushstring          "\"alpha\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "alpha")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "color = "
++      pushstring          "\"color\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "color")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "farLimit = "
++      pushstring          "\"farLimit\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "farLimit")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "nearLimit = "
++      pushstring          "\"nearLimit\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "nearLimit")
+       add
+-      pushstring          " "
+-      add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "]"
++      pushstring          "}"
+       add
+       coerce_s
+       setlocal1
+diff --git a/src/projects/tanks/client/battlefield/models/map/SkyboxSides.class.asasm b/src/projects/tanks/client/battlefield/models/map/SkyboxSides.class.asasm
+index 3e1b7fe..5731e01 100644
+--- a/src/projects/tanks/client/battlefield/models/map/SkyboxSides.class.asasm
++++ b/src/projects/tanks/client/battlefield/models/map/SkyboxSides.class.asasm
+@@ -351,78 +351,76 @@ class
+       getlocal0
+       pushscope
+ 
+-      pushstring          "SkyboxSides ["
++      pushstring          "{"
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "back = "
++      pushstring          "\"back\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "back")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "bottom = "
++      pushstring          "\"bottom\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "bottom")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "front = "
++      pushstring          "\"front\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "front")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "left = "
++      pushstring          "\"left\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "left")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "right = "
++      pushstring          "\"right\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "right")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "top = "
++      pushstring          "\"top\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "top")
+       add
+-      pushstring          " "
+-      add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "]"
++      pushstring          "}"
+       add
+       coerce_s
+       setlocal1
+diff --git a/src/projects/tanks/client/battlefield/types/Vector3d.class.asasm b/src/projects/tanks/client/battlefield/types/Vector3d.class.asasm
+index 8904366..ad7c624 100644
+--- a/src/projects/tanks/client/battlefield/types/Vector3d.class.asasm
++++ b/src/projects/tanks/client/battlefield/types/Vector3d.class.asasm
+@@ -195,45 +195,43 @@ class
+       getlocal0
+       pushscope
+ 
+-      pushstring          "Vector3d ["
++      pushstring          "{"
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "x = "
++      pushstring          "\"x\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "x")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "y = "
++      pushstring          "\"y\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "y")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "z = "
++      pushstring          "\"z\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "z")
+       add
+-      pushstring          " "
+-      add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "]"
++      pushstring          "}"
+       add
+       coerce_s
+       setlocal1

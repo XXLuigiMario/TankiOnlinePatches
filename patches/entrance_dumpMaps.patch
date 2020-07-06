@@ -1,0 +1,773 @@
+diff --git a/src/alternativa/tanks/controllers/battlecreate/CreateBattleFormController.class.asasm b/src/alternativa/tanks/controllers/battlecreate/CreateBattleFormController.class.asasm
+index 045324b..da0192d 100644
+--- a/src/alternativa/tanks/controllers/battlecreate/CreateBattleFormController.class.asasm
++++ b/src/alternativa/tanks/controllers/battlecreate/CreateBattleFormController.class.asasm
+@@ -270,8 +270,7 @@ L23:
+       setproperty         QName(PackageNamespace(""), "battleModes")
+ 
+       getlocal            6
+-      getlocal            5
+-      callproperty        QName(Namespace("alternativa.tanks.model.map.mapinfo:IMapInfo"), "isEnabled"), 0
++      pushtrue
+       setproperty         QName(PackageNamespace(""), "enabled")
+ 
+       getlocal            6
+diff --git a/src/alternativa/tanks/model/map/mapinfo/MapInfoModel.class.asasm b/src/alternativa/tanks/model/map/mapinfo/MapInfoModel.class.asasm
+index 3c71dcd..91c0fb9 100644
+--- a/src/alternativa/tanks/model/map/mapinfo/MapInfoModel.class.asasm
++++ b/src/alternativa/tanks/model/map/mapinfo/MapInfoModel.class.asasm
+@@ -286,9 +286,10 @@ class
+       getlocal0
+       pushscope
+ 
+-      getlocal0
+-      callproperty        QName(PackageNamespace(""), "isEnabled"), 0
+-      iffalse             L11
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      findpropstrict      QName(ProtectedNamespace("projects.tanks.client.battleselect.model.map:MapInfoModelBase"), "getInitParam")
++      callproperty        QName(ProtectedNamespace("projects.tanks.client.battleselect.model.map:MapInfoModelBase"), "getInitParam"), 0
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
+ 
+       findpropstrict      QName(PrivateNamespace("alternativa.tanks.model.map.mapinfo:MapInfoModel"), "maps")
+       getproperty         QName(PrivateNamespace("alternativa.tanks.model.map.mapinfo:MapInfoModel"), "maps")
+@@ -296,7 +297,6 @@ class
+       getproperty         QName(PackageNamespace(""), "object")
+       callproperty        QName(Namespace("http://adobe.com/AS3/2006/builtin"), "push"), 1
+       pop
+-L11:
+       returnvoid
+      end ; code
+     end ; body
+diff --git a/src/platform/client/fp10/core/resource/Resource.class.asasm b/src/platform/client/fp10/core/resource/Resource.class.asasm
+index f998e6f..3b028c6 100644
+--- a/src/platform/client/fp10/core/resource/Resource.class.asasm
++++ b/src/platform/client/fp10/core/resource/Resource.class.asasm
+@@ -255,32 +255,33 @@ L25:
+       getlocal0
+       pushscope
+ 
+-      pushstring          "resource id: "
++      pushstring          "{\"id\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "id")
+       add
+-      pushstring          ", version: "
++      pushstring          ", \"version\": "
+       add
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "version")
+-      getproperty         QName(PackageNamespace(""), "low")
+       add
+-      pushstring          ", lazy: "
++      pushstring          ", \"lazy\": "
+       add
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "isLazy")
+       add
+-      pushstring          ", class: "
++      pushstring          ", \"class\": \""
+       add
+       findpropstrict      QName(PrivateNamespace("platform.client.fp10.core.resource:Resource"), "getClassName")
+       getlocal0
+       callproperty        QName(PrivateNamespace("platform.client.fp10.core.resource:Resource"), "getClassName"), 1
+       add
+-      pushstring          ", status: "
++      pushstring          "\", \"status\": \""
+       add
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "status")
+       add
++      pushstring          "\"}"
++      add
+       returnvalue
+      end ; code
+     end ; body
+diff --git a/src/platform/client/fp10/core/resource/types/MultiframeTextureResource.class.asasm b/src/platform/client/fp10/core/resource/types/MultiframeTextureResource.class.asasm
+index 1ee7cd9..11f400c 100644
+--- a/src/platform/client/fp10/core/resource/types/MultiframeTextureResource.class.asasm
++++ b/src/platform/client/fp10/core/resource/types/MultiframeTextureResource.class.asasm
+@@ -140,31 +140,6 @@ class
+     end ; body
+    end ; method
+   end ; trait
+-  trait method QName(PackageNamespace(""), "toString") flag OVERRIDE
+-   method
+-    name ""
+-    refid "platform.client.fp10.core.resource.types:MultiframeTextureResource/instance/toString"
+-    returns QName(PackageNamespace(""), "String")
+-    body
+-     maxstack 2
+-     localcount 1
+-     initscopedepth 5
+-     maxscopedepth 6
+-     code
+-      getlocal0
+-      pushscope
+-
+-      pushstring          "[MultiframeTextureResource id="
+-      findpropstrict      QName(PackageNamespace(""), "id")
+-      getproperty         QName(PackageNamespace(""), "id")
+-      add
+-      pushstring          "]"
+-      add
+-      returnvalue
+-     end ; code
+-    end ; body
+-   end ; method
+-  end ; trait
+   trait getter QName(PackageNamespace(""), "description") flag OVERRIDE
+    method
+     name ""
+diff --git a/src/platform/client/fp10/core/resource/types/SoundResource.class.asasm b/src/platform/client/fp10/core/resource/types/SoundResource.class.asasm
+index c807d51..6d587ba 100644
+--- a/src/platform/client/fp10/core/resource/types/SoundResource.class.asasm
++++ b/src/platform/client/fp10/core/resource/types/SoundResource.class.asasm
+@@ -48,31 +48,6 @@ class
+     end ; body
+    end ; method
+   end ; trait
+-  trait method QName(PackageNamespace(""), "toString") flag OVERRIDE
+-   method
+-    name ""
+-    refid "platform.client.fp10.core.resource.types:SoundResource/instance/toString"
+-    returns QName(PackageNamespace(""), "String")
+-    body
+-     maxstack 2
+-     localcount 1
+-     initscopedepth 5
+-     maxscopedepth 6
+-     code
+-      getlocal0
+-      pushscope
+-
+-      pushstring          "[SoundResource id="
+-      findpropstrict      QName(PackageNamespace(""), "id")
+-      getproperty         QName(PackageNamespace(""), "id")
+-      add
+-      pushstring          "]"
+-      add
+-      returnvalue
+-     end ; code
+-    end ; body
+-   end ; method
+-  end ; trait
+   trait method QName(PackageNamespace(""), "load") flag OVERRIDE
+    method
+     name ""
+diff --git a/src/projects/tanks/client/battleselect/model/battleselect/create/BattleCreateModelServer.class.asasm b/src/projects/tanks/client/battleselect/model/battleselect/create/BattleCreateModelServer.class.asasm
+index 7ef7fea..368548b 100644
+--- a/src/projects/tanks/client/battleselect/model/battleselect/create/BattleCreateModelServer.class.asasm
++++ b/src/projects/tanks/client/battleselect/model/battleselect/create/BattleCreateModelServer.class.asasm
+@@ -211,6 +211,10 @@ L39:
+       getlocal0
+       pushscope
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      getlocal1
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       findpropstrict      QName(PackageNamespace("flash.utils"), "ByteArray")
+       getlocal0
+       getproperty         QName(PrivateNamespace("projects.tanks.client.battleselect.model.battleselect.create:BattleCreateModelServer"), "protocolBuffer")
+diff --git a/src/projects/tanks/client/battleselect/model/map/MapInfoCC.class.asasm b/src/projects/tanks/client/battleselect/model/map/MapInfoCC.class.asasm
+index 1626a3c..2513b7b 100644
+--- a/src/projects/tanks/client/battleselect/model/map/MapInfoCC.class.asasm
++++ b/src/projects/tanks/client/battleselect/model/map/MapInfoCC.class.asasm
+@@ -559,122 +559,120 @@ class
+       getlocal0
+       pushscope
+ 
+-      pushstring          "MapInfoCC ["
++      pushstring          "{"
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "defaultTheme = "
++      pushstring          "\"defaultTheme\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "defaultTheme")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "enabled = "
++      pushstring          "\"enabled\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "enabled")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "mapId = "
++      pushstring          "\"mapId\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "mapId")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "mapName = "
++      pushstring          "\"mapName\": \""
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "mapName")
+       add
+-      pushstring          " "
++      pushstring          "\", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "matchmakingMark = "
++      pushstring          "\"matchmakingMark\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "matchmakingMark")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "maxPeople = "
++      pushstring          "\"maxPeople\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "maxPeople")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "preview = "
++      pushstring          "\"preview\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "preview")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "rankLimit = "
++      pushstring          "\"rankLimit\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "rankLimit")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "supportedModes = "
++      pushstring          "\"supportedModes\": ["
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "supportedModes")
+       add
+-      pushstring          " "
++      pushstring          "], "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "theme = "
++      pushstring          "\"theme\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "theme")
+       add
+-      pushstring          " "
+-      add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "]"
++      pushstring          "}"
+       add
+       coerce_s
+       setlocal1
+diff --git a/src/projects/tanks/client/battleservice/BattleCreateParameters.class.asasm b/src/projects/tanks/client/battleservice/BattleCreateParameters.class.asasm
+index 6efcb27..d60947e 100644
+--- a/src/projects/tanks/client/battleservice/BattleCreateParameters.class.asasm
++++ b/src/projects/tanks/client/battleservice/BattleCreateParameters.class.asasm
+@@ -1287,276 +1287,274 @@ class
+       getlocal0
+       pushscope
+ 
+-      pushstring          "BattleCreateParameters ["
++      pushstring          "{"
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "autoBalance = "
++      pushstring          "\"autoBalance\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "autoBalance")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "battleMode = "
++      pushstring          "\"battleMode\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "battleMode")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "clanBattle = "
++      pushstring          "\"clanBattle\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "clanBattle")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "dependentCooldownEnabled = "
++      pushstring          "\"dependentCooldownEnabled\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "dependentCooldownEnabled")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "equipmentConstraintsMode = "
++      pushstring          "\"equipmentConstraintsMode\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "equipmentConstraintsMode")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "friendlyFire = "
++      pushstring          "\"friendlyFire\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "friendlyFire")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "goldBoxesEnabled = "
++      pushstring          "\"goldBoxesEnabled\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "goldBoxesEnabled")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "limits = "
++      pushstring          "\"limits\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "limits")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "mapId = "
++      pushstring          "\"mapId\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "mapId")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "maxPeopleCount = "
++      pushstring          "\"maxPeopleCount\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "maxPeopleCount")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "name = "
++      pushstring          "\"name\": \""
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "name")
+       add
+-      pushstring          " "
++      pushstring          "\", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "parkourMode = "
++      pushstring          "\"parkourMode\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "parkourMode")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "privateBattle = "
++      pushstring          "\"privateBattle\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "privateBattle")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "proBattle = "
++      pushstring          "\"proBattle\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "proBattle")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "rankRange = "
++      pushstring          "\"rankRange\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "rankRange")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "reArmorEnabled = "
++      pushstring          "\"reArmorEnabled\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "reArmorEnabled")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "theme = "
++      pushstring          "\"theme\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "theme")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "ultimatesEnabled = "
++      pushstring          "\"ultimatesEnabled\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "ultimatesEnabled")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "uniqueUsersBattle = "
++      pushstring          "\"uniqueUsersBattle\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "uniqueUsersBattle")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "withoutBonuses = "
++      pushstring          "\"withoutBonuses\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "withoutBonuses")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "withoutDevices = "
++      pushstring          "\"withoutDevices\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "withoutDevices")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "withoutDrones = "
++      pushstring          "\"withoutDrones\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "withoutDrones")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "withoutSupplies = "
++      pushstring          "\"withoutSupplies\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "withoutSupplies")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "withoutUpgrades = "
++      pushstring          "\"withoutUpgrades\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "withoutUpgrades")
+       add
+-      pushstring          " "
+-      add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "]"
++      pushstring          "}"
+       add
+       coerce_s
+       setlocal1
+diff --git a/src/projects/tanks/client/battleservice/BattleMode.class.asasm b/src/projects/tanks/client/battleservice/BattleMode.class.asasm
+index 220cdf8..dc4b92d 100644
+--- a/src/projects/tanks/client/battleservice/BattleMode.class.asasm
++++ b/src/projects/tanks/client/battleservice/BattleMode.class.asasm
+@@ -50,11 +50,11 @@ class
+       getlocal0
+       pushscope
+ 
+-      pushstring          "BattleMode ["
++      pushstring          "\""
+       getlocal0
+       getproperty         QName(PrivateNamespace("projects.tanks.client.battleservice:BattleMode"), "_name")
+       add
+-      pushstring          "]"
++      pushstring          "\""
+       add
+       returnvalue
+      end ; code
+diff --git a/src/projects/tanks/client/battleservice/Range.class.asasm b/src/projects/tanks/client/battleservice/Range.class.asasm
+index aba51b5..43c6870 100644
+--- a/src/projects/tanks/client/battleservice/Range.class.asasm
++++ b/src/projects/tanks/client/battleservice/Range.class.asasm
+@@ -143,34 +143,32 @@ class
+       getlocal0
+       pushscope
+ 
+-      pushstring          "Range ["
++      pushstring          "{"
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "max = "
++      pushstring          "\"max\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "max")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "min = "
++      pushstring          "\"min\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "min")
+       add
+-      pushstring          " "
+-      add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "]"
++      pushstring          "}"
+       add
+       coerce_s
+       setlocal1
+diff --git a/src/projects/tanks/client/battleservice/model/createparams/BattleLimits.class.asasm b/src/projects/tanks/client/battleservice/model/createparams/BattleLimits.class.asasm
+index 2aaba14..94afa3c 100644
+--- a/src/projects/tanks/client/battleservice/model/createparams/BattleLimits.class.asasm
++++ b/src/projects/tanks/client/battleservice/model/createparams/BattleLimits.class.asasm
+@@ -143,34 +143,32 @@ class
+       getlocal0
+       pushscope
+ 
+-      pushstring          "BattleLimits ["
++      pushstring          "{"
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "scoreLimit = "
++      pushstring          "\"scoreLimit\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "scoreLimit")
+       add
+-      pushstring          " "
++      pushstring          ", "
+       add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "timeLimitInSec = "
++      pushstring          "\"timeLimitInSec\": "
+       getlocal0
+       getproperty         QName(PackageNamespace(""), "timeLimitInSec")
+       add
+-      pushstring          " "
+-      add
+       add
+       coerce_s
+       setlocal1
+ 
+       getlocal1
+-      pushstring          "]"
++      pushstring          "}"
+       add
+       coerce_s
+       setlocal1
+diff --git a/src/projects/tanks/client/battleservice/model/map/params/MapTheme.class.asasm b/src/projects/tanks/client/battleservice/model/map/params/MapTheme.class.asasm
+index 2a0a7ef..18ff453 100644
+--- a/src/projects/tanks/client/battleservice/model/map/params/MapTheme.class.asasm
++++ b/src/projects/tanks/client/battleservice/model/map/params/MapTheme.class.asasm
+@@ -50,11 +50,11 @@ class
+       getlocal0
+       pushscope
+ 
+-      pushstring          "MapTheme ["
++      pushstring          "\""
+       getlocal0
+       getproperty         QName(PrivateNamespace("projects.tanks.client.battleservice.model.map.params:MapTheme"), "_name")
+       add
+-      pushstring          "]"
++      pushstring          "\""
+       add
+       returnvalue
+      end ; code

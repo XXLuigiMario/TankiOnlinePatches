@@ -1,0 +1,75 @@
+diff --git a/src/platform/client/fp10/core/network/handler/SpaceCommandHandler.class.asasm b/src/platform/client/fp10/core/network/handler/SpaceCommandHandler.class.asasm
+index 9db8577..a31a5cf 100644
+--- a/src/platform/client/fp10/core/network/handler/SpaceCommandHandler.class.asasm
++++ b/src/platform/client/fp10/core/network/handler/SpaceCommandHandler.class.asasm
+@@ -101,6 +101,10 @@ L30:
+       getlocal0
+       pushscope
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "*** SpaceCommandHandler::onConnectionOpen ***"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       getlocal0
+       getlocal1
+       setproperty         QName(PrivateNamespace("platform.client.fp10.core.network.handler:SpaceCommandHandler"), "commandSender")
+diff --git a/src/platform/client/fp10/core/registry/impl/GameTypeRegistryImpl.class.asasm b/src/platform/client/fp10/core/registry/impl/GameTypeRegistryImpl.class.asasm
+index 81e8f95..5a09922 100644
+--- a/src/platform/client/fp10/core/registry/impl/GameTypeRegistryImpl.class.asasm
++++ b/src/platform/client/fp10/core/registry/impl/GameTypeRegistryImpl.class.asasm
+@@ -60,6 +60,17 @@ class
+       getlocal3
+       setproperty         MultinameL([PrivateNamespace("platform.client.fp10.core.registry.impl:GameTypeRegistryImpl"), PrivateNamespace("GameTypeRegistryImpl.as$116"), PackageNamespace(""), PackageNamespace("platform.client.fp10.core.registry.impl"), PackageInternalNs("platform.client.fp10.core.registry.impl"), Namespace("http://adobe.com/AS3/2006/builtin"), ProtectedNamespace("platform.client.fp10.core.registry.impl:GameTypeRegistryImpl"), StaticProtectedNs("platform.client.fp10.core.registry.impl:GameTypeRegistryImpl")])
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "*** GameTypeRegistryImpl::createClass ***"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "class="
++      getlocal3
++      coerce_s
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       getlocal3
+       returnvalue
+      end ; code
+diff --git a/src/platform/client/fp10/core/registry/impl/ModelsRegistryImpl.class.asasm b/src/platform/client/fp10/core/registry/impl/ModelsRegistryImpl.class.asasm
+index 4113289..f314636 100644
+--- a/src/platform/client/fp10/core/registry/impl/ModelsRegistryImpl.class.asasm
++++ b/src/platform/client/fp10/core/registry/impl/ModelsRegistryImpl.class.asasm
+@@ -230,7 +230,7 @@ class
+     param QName(PackageNamespace("alternativa.protocol"), "ProtocolBuffer")
+     returns QName(PackageNamespace(""), "void")
+     body
+-     maxstack 3
++     maxstack 4
+      localcount 6
+      initscopedepth 4
+      maxscopedepth 5
+@@ -260,6 +260,24 @@ class
+       pushnull
+       ifeq                L35
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "*** ModelsRegistryImpl::invoke ***"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "model="
++      findpropstrict      QName(PackageNamespace("flash.utils"), "getQualifiedClassName")
++      getlocal            5
++      callproperty        QName(PackageNamespace("flash.utils"), "getQualifiedClassName"), 1
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "method="
++      getlocal            2
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       findpropstrict      QName(PackageNamespace("platform.client.fp10.core.model.impl"), "Model")
+       getproperty         QName(PackageNamespace("platform.client.fp10.core.model.impl"), "Model")
+       getlocal1

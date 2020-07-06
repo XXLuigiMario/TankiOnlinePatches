@@ -1,0 +1,221 @@
+diff --git a/src/alternativa/protocol/ProtocolBuffer.class.asasm b/src/alternativa/protocol/ProtocolBuffer.class.asasm
+index 459785c..21aa310 100644
+--- a/src/alternativa/protocol/ProtocolBuffer.class.asasm
++++ b/src/alternativa/protocol/ProtocolBuffer.class.asasm
+@@ -42,6 +42,7 @@ class
+   trait slot QName(PrivateNamespace("alternativa.protocol:ProtocolBuffer"), "_writer") type QName(PackageNamespace("flash.utils"), "IDataOutput") end
+   trait slot QName(PrivateNamespace("alternativa.protocol:ProtocolBuffer"), "_reader") type QName(PackageNamespace("flash.utils"), "IDataInput") end
+   trait slot QName(PrivateNamespace("alternativa.protocol:ProtocolBuffer"), "_optionalMap") type QName(PackageNamespace("alternativa.protocol"), "OptionalMap") end
++  trait slot QName(PackageNamespace(""), "unwrapped") type QName(PackageNamespace("flash.utils"), "ByteArray") end
+   trait getter QName(PackageNamespace(""), "writer")
+    method
+     name ""
+diff --git a/src/alternativa/protocol/impl/PacketHelper.class.asasm b/src/alternativa/protocol/impl/PacketHelper.class.asasm
+index efc7b61..228938e 100644
+--- a/src/alternativa/protocol/impl/PacketHelper.class.asasm
++++ b/src/alternativa/protocol/impl/PacketHelper.class.asasm
+@@ -294,6 +294,14 @@ L141:
+      pushbyte            0
+      setproperty         QName(PackageNamespace(""), "position")
+ 
++     getlocal            8
++     pushbyte            0
++     setproperty         QName(PackageNamespace(""), "position")
++
++     getlocal2
++     getlocal            8
++     setproperty         QName(PackageNamespace(""), "unwrapped")
++
+      pushtrue
+      returnvalue
+     end ; code
+diff --git a/src/platform/client/fp10/core/network/connection/SocketConnection.class.asasm b/src/platform/client/fp10/core/network/connection/SocketConnection.class.asasm
+index 2873710..865a793 100644
+--- a/src/platform/client/fp10/core/network/connection/SocketConnection.class.asasm
++++ b/src/platform/client/fp10/core/network/connection/SocketConnection.class.asasm
+@@ -11,14 +11,28 @@ class
+    refid "platform.client.fp10.core.network.connection:SocketConnection/instance/init"
+    param QName(PackageNamespace("platform.client.fp10.core.network.connection"), "ConnectionInitializers")
+    body
+-    maxstack 2
+-    localcount 4
++    maxstack 3
++    localcount 5
+     initscopedepth 4
+     maxscopedepth 5
+     code
+      getlocal0
+      pushscope
+ 
++     findproperty        QName(StaticProtectedNs("platform.client.fp10.core.network.connection:SocketConnection"), "nextId")
++     findpropstrict      QName(StaticProtectedNs("platform.client.fp10.core.network.connection:SocketConnection"), "nextId")
++     getproperty         QName(StaticProtectedNs("platform.client.fp10.core.network.connection:SocketConnection"), "nextId")
++     convert_i
++     setlocal            4
++
++     getlocal0
++     getlocal            4
++     initproperty        QName(PrivateNamespace(""), "id")
++
++     getlocal            4
++     increment_i
++     setproperty         QName(StaticProtectedNs("platform.client.fp10.core.network.connection:SocketConnection"), "nextId")
++
+      pushnull
+      coerce              QName(PackageNamespace("com.hurlant.crypto.tls"), "TLSConfig")
+      setlocal2
+@@ -146,6 +160,7 @@ L86:
+   trait slot QName(PrivateNamespace("platform.client.fp10.core.network.connection:SocketConnection"), "dataBuffer") type QName(PackageNamespace("flash.utils"), "ByteArray") end
+   trait slot QName(PrivateNamespace("platform.client.fp10.core.network.connection:SocketConnection"), "currentPacketPosition") type QName(PackageNamespace(""), "int") end
+   trait slot QName(PrivateNamespace("platform.client.fp10.core.network.connection:SocketConnection"), "socket") type QName(PackageNamespace("flash.net"), "Socket") end
++  trait slot QName(PrivateNamespace(""), "id") type QName(PackageNamespace(""), "int") end
+   trait method QName(PackageNamespace(""), "connect")
+    method
+     name ""
+@@ -332,6 +347,63 @@ L55:
+       getlocal            6
+       callproperty        QName(Namespace("platform.client.fp10.core.network.connection:IProtectionContext"), "wrap"), 2
+       pop
++
++      findpropstrict      QName(PackageNamespace("flash.utils"), "ByteArray")
++      constructprop       QName(PackageNamespace("flash.utils"), "ByteArray"), 0
++      coerce              QName(PackageNamespace("flash.utils"), "ByteArray")
++      setlocal            6
++
++      findpropstrict      QName(PackageNamespace("alternativa.protocol.impl"), "OptionalMapCodecHelper")
++      getproperty         QName(PackageNamespace("alternativa.protocol.impl"), "OptionalMapCodecHelper")
++      getlocal            5
++      getproperty         QName(PackageNamespace(""), "optionalMap")
++      getlocal            6
++      callproperty        QName(PackageNamespace(""), "encodeNullMap"), 2
++      pop
++
++      getlocal            5
++      getproperty         QName(PackageNamespace(""), "reader")
++      pushbyte            0
++      setproperty         QName(PackageNamespace(""), "position")
++
++      getlocal            5
++      getproperty         QName(PackageNamespace(""), "reader")
++      getlocal            6
++      getlocal            6
++      getproperty         QName(PackageNamespace(""), "position")
++      getlocal            5
++      getproperty         QName(PackageNamespace(""), "reader")
++      getproperty         QName(Namespace("flash.utils:IDataInput"), "bytesAvailable")
++      callproperty        QName(Namespace("flash.utils:IDataInput"), "readBytes"), 3
++      pop
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "*****"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "type=data"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "id="
++      getlocal0
++      getproperty         QName(PrivateNamespace(""), "id")
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "outgoing=1"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "hex="
++      getlex              QName(PackageNamespace("com.hurlant.util"), "Hex")
++      getlocal            6
++      callproperty        QName(PackageNamespace(""), "fromArray"), 1
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       returnvoid
+      end ; code
+     end ; body
+@@ -441,6 +513,35 @@ L44:
+       returnvoid
+ 
+ L74:
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "*****"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "type=data"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "id="
++      getlocal0
++      getproperty         QName(PrivateNamespace(""), "id")
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "outgoing=0"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "hex="
++      getlex              QName(PackageNamespace("com.hurlant.util"), "Hex")
++      getscopeobject      1
++      getslot             2
++      getproperty         QName(PackageNamespace(""), "unwrapped")
++      callproperty        QName(PackageNamespace(""), "fromArray"), 1
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       findpropstrict      QName(PackageNamespace("flash.utils"), "ByteArray")
+       getscopeobject      1
+       getslot             2
+@@ -1005,6 +1106,38 @@ L71:
+       getlocal0
+       pushscope
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "*****"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "type=begin"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "id="
++      getlocal0
++      getproperty         QName(PrivateNamespace(""), "id")
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "host="
++      getlocal0
++      getproperty         QName(PackageNamespace(""), "host")
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "port="
++      getlocal0
++      getproperty         QName(PackageNamespace(""), "ports")
++      getlocal0
++      getproperty         QName(ProtectedNamespace("platform.client.fp10.core.network.connection:SocketConnection"), "portIndex")
++      getproperty         MultinameL([PrivateNamespace("platform.client.fp10.core.network.connection:SocketConnection"), StaticProtectedNs("platform.client.fp10.core.network.connection:SocketConnection"), PackageNamespace(""), PackageNamespace("platform.client.fp10.core.network.connection"), ProtectedNamespace("platform.client.fp10.core.network.connection:SocketConnection"), PackageInternalNs("platform.client.fp10.core.network.connection"), Namespace("http://adobe.com/AS3/2006/builtin"), PrivateNamespace("SocketConnection.as$390")])
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       findpropstrict      QName(PackageNamespace(""), "networkService")
+       getproperty         QName(PackageNamespace(""), "networkService")
+       getlocal0
+@@ -1291,6 +1424,7 @@ L45:
+  trait slot QName(StaticProtectedNs("platform.client.fp10.core.network.connection:SocketConnection"), "connectionLogger") slotid 6 type QName(PackageNamespace("alternativa.osgi.service.logging"), "Logger") end
+  trait slot QName(StaticProtectedNs("platform.client.fp10.core.network.connection:SocketConnection"), "networkLogger") slotid 7 type QName(PackageNamespace("alternativa.osgi.service.logging"), "Logger") end
+  trait slot QName(StaticProtectedNs("platform.client.fp10.core.network.connection:SocketConnection"), "serverCommandLogger") slotid 8 type QName(PackageNamespace("alternativa.osgi.service.logging"), "Logger") end
++ trait slot QName(StaticProtectedNs("platform.client.fp10.core.network.connection:SocketConnection"), "nextId") slotid 9 type QName(PackageNamespace(""), "int") value Integer(0) end
+  trait method QName(PrivateNamespace("platform.client.fp10.core.network.connection:SocketConnection"), "initLoggers") flag FINAL dispid 3
+   method
+    name ""

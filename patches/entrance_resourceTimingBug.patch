@@ -1,0 +1,82 @@
+diff --git a/src/platform/client/fp10/core/registry/impl/ModelsRegistryImpl.class.asasm b/src/platform/client/fp10/core/registry/impl/ModelsRegistryImpl.class.asasm
+index 4113289..f314636 100644
+--- a/src/platform/client/fp10/core/registry/impl/ModelsRegistryImpl.class.asasm
++++ b/src/platform/client/fp10/core/registry/impl/ModelsRegistryImpl.class.asasm
+@@ -230,7 +230,7 @@ class
+     param QName(PackageNamespace("alternativa.protocol"), "ProtocolBuffer")
+     returns QName(PackageNamespace(""), "void")
+     body
+-     maxstack 3
++     maxstack 4
+      localcount 6
+      initscopedepth 4
+      maxscopedepth 5
+@@ -260,6 +260,24 @@ class
+       pushnull
+       ifeq                L35
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "*** ModelsRegistryImpl::invoke ***"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "model="
++      findpropstrict      QName(PackageNamespace("flash.utils"), "getQualifiedClassName")
++      getlocal            5
++      callproperty        QName(PackageNamespace("flash.utils"), "getQualifiedClassName"), 1
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "method="
++      getlocal            2
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       findpropstrict      QName(PackageNamespace("platform.client.fp10.core.model.impl"), "Model")
+       getproperty         QName(PackageNamespace("platform.client.fp10.core.model.impl"), "Model")
+       getlocal1
+diff --git a/src/platform/client/fp10/core/registry/impl/ResourceRegistryImpl.class.asasm b/src/platform/client/fp10/core/registry/impl/ResourceRegistryImpl.class.asasm
+index 9ee6337..1b5b70d 100644
+--- a/src/platform/client/fp10/core/registry/impl/ResourceRegistryImpl.class.asasm
++++ b/src/platform/client/fp10/core/registry/impl/ResourceRegistryImpl.class.asasm
+@@ -131,6 +131,22 @@ class
+       getlocal0
+       pushscope
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "*** ResourceRegistryImpl::registerTypeClasses ***"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "type="
++      getlocal1
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "class="
++      getlocal2
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       getlocal0
+       getproperty         QName(PrivateNamespace("platform.client.fp10.core.registry.impl:ResourceRegistryImpl"), "protocol")
+       getlocal2
+diff --git a/src/platform/loading/codecs/ObjectsDependenciesCodec.class.asasm b/src/platform/loading/codecs/ObjectsDependenciesCodec.class.asasm
+index 7378adc..d7bbb4b 100644
+--- a/src/platform/loading/codecs/ObjectsDependenciesCodec.class.asasm
++++ b/src/platform/loading/codecs/ObjectsDependenciesCodec.class.asasm
+@@ -499,6 +499,12 @@ L16:
+       not
+       iffalse             L27
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "resource="
++      getlocal1
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       findpropstrict      QName(PackageNamespace(""), "Error")
+       pushstring          "Unknown resource type"
+       constructprop       QName(PackageNamespace(""), "Error"), 1
