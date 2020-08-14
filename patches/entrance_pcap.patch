@@ -30,7 +30,7 @@ index efc7b61..228938e 100644
       returnvalue
      end ; code
 diff --git a/src/platform/client/fp10/core/network/connection/SocketConnection.class.asasm b/src/platform/client/fp10/core/network/connection/SocketConnection.class.asasm
-index 2873710..865a793 100644
+index 58abdc7..6f65d70 100644
 --- a/src/platform/client/fp10/core/network/connection/SocketConnection.class.asasm
 +++ b/src/platform/client/fp10/core/network/connection/SocketConnection.class.asasm
 @@ -11,14 +11,28 @@ class
@@ -211,7 +211,56 @@ index 2873710..865a793 100644
        findpropstrict      QName(PackageNamespace(""), "networkService")
        getproperty         QName(PackageNamespace(""), "networkService")
        getlocal0
-@@ -1291,6 +1424,7 @@ L45:
+@@ -1078,14 +1211,46 @@ L71:
+     flag HAS_OPTIONAL
+     optional Null()
+     body
+-     maxstack 3
+-     localcount 3
++     maxstack 4
++     localcount 4
+      initscopedepth 4
+      maxscopedepth 5
+      code
+       getlocal0
+       pushscope
+ 
++      findpropstrict      QName(PackageNamespace("platform.client.fp10.core.network.connection"), "ConnectionCloseStatus")
++      getproperty         QName(PackageNamespace("platform.client.fp10.core.network.connection"), "ConnectionCloseStatus")
++      getproperty         QName(PackageNamespace(""), "CLOSED_BY_SERVER")
++      getlocal1
++      equals
++      not
++      convert_b
++      setlocal3
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "*****"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "type=end"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "id="
++      getlocal0
++      getproperty         QName(PrivateNamespace(""), "id")
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "outgoing="
++      findpropstrict      QName(PackageNamespace(""), "int")
++      getlocal3
++      callproperty        QName(PackageNamespace(""), "int"), 1
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       getlocal0
+       getproperty         QName(PrivateNamespace("platform.client.fp10.core.network.connection:SocketConnection"), "socket")
+       callproperty        QName(PackageNamespace(""), "flush"), 0
+@@ -1291,6 +1456,7 @@ L45:
   trait slot QName(StaticProtectedNs("platform.client.fp10.core.network.connection:SocketConnection"), "connectionLogger") slotid 6 type QName(PackageNamespace("alternativa.osgi.service.logging"), "Logger") end
   trait slot QName(StaticProtectedNs("platform.client.fp10.core.network.connection:SocketConnection"), "networkLogger") slotid 7 type QName(PackageNamespace("alternativa.osgi.service.logging"), "Logger") end
   trait slot QName(StaticProtectedNs("platform.client.fp10.core.network.connection:SocketConnection"), "serverCommandLogger") slotid 8 type QName(PackageNamespace("alternativa.osgi.service.logging"), "Logger") end
