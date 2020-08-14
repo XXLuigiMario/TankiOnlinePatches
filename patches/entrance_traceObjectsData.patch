@@ -1,5 +1,37 @@
+diff --git a/src/platform/loading/codecs/ModelDataCodec.class.asasm b/src/platform/loading/codecs/ModelDataCodec.class.asasm
+index 27fd1f1..e79a9ce 100644
+--- a/src/platform/loading/codecs/ModelDataCodec.class.asasm
++++ b/src/platform/loading/codecs/ModelDataCodec.class.asasm
+@@ -84,7 +84,7 @@ class
+     param QName(PackageNamespace("alternativa.protocol"), "ProtocolBuffer")
+     returns QName(PackageNamespace(""), "Object")
+     body
+-     maxstack 3
++     maxstack 4
+      localcount 5
+      initscopedepth 4
+      maxscopedepth 5
+@@ -140,6 +140,18 @@ L36:
+       coerce              QName(PackageNamespace("alternativa.protocol"), "ICodec")
+       setlocal            4
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "model="
++      getlocal3
++      add
++      pushstring          ", codec="
++      add
++      findpropstrict      QName(PackageNamespace("flash.utils"), "getQualifiedClassName")
++      getlocal            4
++      callproperty        QName(PackageNamespace("flash.utils"), "getQualifiedClassName"), 1
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       getlocal            4
+       pushnull
+       ifne                L51
 diff --git a/src/platform/loading/codecs/ObjectsDataCodec.class.asasm b/src/platform/loading/codecs/ObjectsDataCodec.class.asasm
-index f43cb94..f83aa2c 100644
+index d762574..718b65c 100644
 --- a/src/platform/loading/codecs/ObjectsDataCodec.class.asasm
 +++ b/src/platform/loading/codecs/ObjectsDataCodec.class.asasm
 @@ -126,6 +126,10 @@ class
@@ -13,14 +45,33 @@ index f43cb94..f83aa2c 100644
        findpropstrict      QName(PackageNamespace("platform.client.core.general.spaces.loading.dispatcher.types"), "ObjectsData")
        constructprop       QName(PackageNamespace("platform.client.core.general.spaces.loading.dispatcher.types"), "ObjectsData"), 0
        coerce              QName(PackageNamespace("platform.client.core.general.spaces.loading.dispatcher.types"), "ObjectsData")
-@@ -288,6 +292,16 @@ L32:
-       throw
- 
- L51:
+@@ -229,6 +233,9 @@ L34:
+      code
+       getlocal0
+       pushscope
 +      findpropstrict      QName(PackageNamespace(""), "trace")
 +      pushstring          "*** ObjectsDataCodec::readObject ***"
 +      callpropvoid        QName(PackageNamespace(""), "trace"), 1
+ 
+       findpropstrict      QName(PackageNamespace("alternativa.types"), "Long")
+       getlocal0
+@@ -260,6 +267,12 @@ L34:
+       getlocal2
+       ifne                L32
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "destroy="
++      getlocal2
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
 +
+       getlocal            4
+       getlocal2
+       callproperty        QName(Namespace("platform.client.fp10.core.type:ISpace"), "destroyObject"), 1
+@@ -288,6 +301,12 @@ L32:
+       throw
+ 
+ L51:
 +      findpropstrict      QName(PackageNamespace(""), "trace")
 +      pushstring          "class="
 +      getlocal            5
@@ -30,3 +81,14 @@ index f43cb94..f83aa2c 100644
        getlocal            4
        getlocal2
        getlocal            5
+@@ -313,6 +332,10 @@ L51:
+       getlocal0
+       pushscope
+ 
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "*** ObjectsDataCodec::decodeModelsData ***"
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
+       getlocal1
+       getproperty         QName(PackageNamespace(""), "reader")
+       callproperty        QName(Namespace("flash.utils:IDataInput"), "readInt"), 0
