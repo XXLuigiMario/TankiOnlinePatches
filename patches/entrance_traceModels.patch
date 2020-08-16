@@ -1,5 +1,5 @@
 diff --git a/src/platform/client/fp10/core/network/handler/SpaceCommandHandler.class.asasm b/src/platform/client/fp10/core/network/handler/SpaceCommandHandler.class.asasm
-index 9db8577..a31a5cf 100644
+index 2bb56ab..a9e423b 100644
 --- a/src/platform/client/fp10/core/network/handler/SpaceCommandHandler.class.asasm
 +++ b/src/platform/client/fp10/core/network/handler/SpaceCommandHandler.class.asasm
 @@ -101,6 +101,10 @@ L30:
@@ -14,7 +14,7 @@ index 9db8577..a31a5cf 100644
        getlocal1
        setproperty         QName(PrivateNamespace("platform.client.fp10.core.network.handler:SpaceCommandHandler"), "commandSender")
 diff --git a/src/platform/client/fp10/core/registry/impl/GameTypeRegistryImpl.class.asasm b/src/platform/client/fp10/core/registry/impl/GameTypeRegistryImpl.class.asasm
-index 81e8f95..5a09922 100644
+index 3d68f67..8d2de1e 100644
 --- a/src/platform/client/fp10/core/registry/impl/GameTypeRegistryImpl.class.asasm
 +++ b/src/platform/client/fp10/core/registry/impl/GameTypeRegistryImpl.class.asasm
 @@ -60,6 +60,17 @@ class
@@ -36,7 +36,7 @@ index 81e8f95..5a09922 100644
        returnvalue
       end ; code
 diff --git a/src/platform/client/fp10/core/registry/impl/ModelsRegistryImpl.class.asasm b/src/platform/client/fp10/core/registry/impl/ModelsRegistryImpl.class.asasm
-index 4113289..f314636 100644
+index 7dbf571..4bce139 100644
 --- a/src/platform/client/fp10/core/registry/impl/ModelsRegistryImpl.class.asasm
 +++ b/src/platform/client/fp10/core/registry/impl/ModelsRegistryImpl.class.asasm
 @@ -230,7 +230,7 @@ class
@@ -48,7 +48,7 @@ index 4113289..f314636 100644
       localcount 6
       initscopedepth 4
       maxscopedepth 5
-@@ -260,6 +260,24 @@ class
+@@ -260,6 +260,31 @@ class
        pushnull
        ifeq                L35
  
@@ -66,7 +66,14 @@ index 4113289..f314636 100644
 +
 +      findpropstrict      QName(PackageNamespace(""), "trace")
 +      pushstring          "method="
-+      getlocal            2
++      getlocal2
++      add
++      callpropvoid        QName(PackageNamespace(""), "trace"), 1
++
++      findpropstrict      QName(PackageNamespace(""), "trace")
++      pushstring          "optional="
++      getlocal3
++      getproperty         QName(PackageNamespace(""), "optionalMap")
 +      add
 +      callpropvoid        QName(PackageNamespace(""), "trace"), 1
 +
