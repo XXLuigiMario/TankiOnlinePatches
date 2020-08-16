@@ -8,4 +8,4 @@ else:
     patch = 'tanki.patch'
 
 with open(patch, 'wb') as f:
-    subprocess.check_call(['git', 'diff'], stdout=f)
+    subprocess.check_call(['git', 'diff', 'src'], stdout=f)
