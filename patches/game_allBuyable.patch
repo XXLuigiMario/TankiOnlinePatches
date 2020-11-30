@@ -1,0 +1,15 @@
+diff --git a/src/_codec/projects/tanks/client/garage/models/item/buyable/CodecBuyableCC.class.asasm b/src/_codec/projects/tanks/client/garage/models/item/buyable/CodecBuyableCC.class.asasm
+index 7f90a90..9cb6480 100644
+--- a/src/_codec/projects/tanks/client/garage/models/item/buyable/CodecBuyableCC.class.asasm
++++ b/src/_codec/projects/tanks/client/garage/models/item/buyable/CodecBuyableCC.class.asasm
+@@ -108,6 +108,10 @@ class
+       astypelate
+       setproperty         QName(PackageNamespace(""), "buyable")
+ 
++      getlocal2
++      pushtrue
++      setproperty         QName(PackageNamespace(""), "buyable")
++
+       getlocal2
+       getlocal0
+       getproperty         QName(PrivateNamespace("_codec.projects.tanks.client.garage.models.item.buyable:CodecBuyableCC"), "codec_currencyId")

@@ -25,3 +25,4 @@ Summary of a notable few:
 Match creation details will also be dumped as JSON (BattleCreateModel).
 *Note: The server will ignore any requests to create matches with maps that are disabled.*
 * **game_dumpMaps.patch**: Must be used in conjunction with `entrance_dumpMaps.patch`. Dumps details about maps as they are loaded in-game to the trace file as JSON (BattleMapModel).
+* **game_allBuyable.patch**: Shows unobtainable items in the garage. This is a client-side only effect, they cannot actually be purchased.
