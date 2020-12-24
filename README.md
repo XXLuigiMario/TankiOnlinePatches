@@ -21,6 +21,8 @@ Patches are included in this repository that aid in reverse engineering and data
 Summary of a notable few:
 
 * **entrance_pcap.patch**: Outputs ingoing and outgoing packets to the Flash debugger trace file.
+* **entrance_pcap_air.patch**: Port of the previous patch for the Adobe AIR (Steam) version of the game.
+The trace file will be written to `%AppData%\TankiOnline\Local Store\flashlog.txt`
 * **entrance_dumpMaps.patch**: Marks all available maps as enabled and dumps them to the trace file as JSON.
 Match creation details will also be dumped as JSON (BattleCreateModel).
 *Note: The server will ignore any requests to create matches with maps that are disabled.*
