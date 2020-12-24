@@ -1,0 +1,45 @@
+diff --git a/src/alternativa/tanks/model/html5migration/FlashToHtmlMigrationModel.class.asasm b/src/alternativa/tanks/model/html5migration/FlashToHtmlMigrationModel.class.asasm
+index a331ee2..a772268 100644
+--- a/src/alternativa/tanks/model/html5migration/FlashToHtmlMigrationModel.class.asasm
++++ b/src/alternativa/tanks/model/html5migration/FlashToHtmlMigrationModel.class.asasm
+@@ -38,40 +38,6 @@ class
+      initscopedepth 6
+      maxscopedepth 7
+      code
+-      getlocal0
+-      pushscope
+-
+-      findpropstrict      QName(ProtectedNamespace("projects.tanks.client.panel.model.html5migration:FlashToHtmlMigrationModelBase"), "getInitParam")
+-      callproperty        QName(ProtectedNamespace("projects.tanks.client.panel.model.html5migration:FlashToHtmlMigrationModelBase"), "getInitParam"), 0
+-      getproperty         QName(PackageNamespace(""), "inactiveTimeSec")
+-      pushbyte            0
+-      greaterthan
+-      convert_b
+-      dup
+-      convert_b
+-      iffalse             L17
+-
+-      pop
+-      getlocal0
+-      getproperty         QName(PrivateNamespace("alternativa.tanks.model.html5migration:FlashToHtmlMigrationModel"), "migrationDialog")
+-      pushnull
+-      equals
+-      convert_b
+-L17:
+-      iffalse             L28
+-
+-      getlocal0
+-      findpropstrict      QName(PackageNamespace("alternativa.tanks.gui.motivation"), "FlashToHtmlMigrationDialog")
+-      findpropstrict      QName(ProtectedNamespace("projects.tanks.client.panel.model.html5migration:FlashToHtmlMigrationModelBase"), "getInitParam")
+-      callproperty        QName(ProtectedNamespace("projects.tanks.client.panel.model.html5migration:FlashToHtmlMigrationModelBase"), "getInitParam"), 0
+-      findpropstrict      QName(ProtectedNamespace("platform.client.fp10.core.model.impl:Model"), "getFunctionWrapper")
+-      getlocal0
+-      getproperty         QName(PrivateNamespace("alternativa.tanks.model.html5migration:FlashToHtmlMigrationModel"), "requestHtmlLink")
+-      callproperty        QName(ProtectedNamespace("platform.client.fp10.core.model.impl:Model"), "getFunctionWrapper"), 1
+-      constructprop       QName(PackageNamespace("alternativa.tanks.gui.motivation"), "FlashToHtmlMigrationDialog"), 2
+-      initproperty        QName(PrivateNamespace("alternativa.tanks.model.html5migration:FlashToHtmlMigrationModel"), "migrationDialog")
+-
+-L28:
+       returnvoid
+      end ; code
+     end ; body
