@@ -118,4 +118,4 @@ if __name__ == '__main__':
     subprocess.check_call(['git', 'add', 'src'])
     subprocess.check_call(['git', 'commit', '-m', 'disassembly'])
     if os.path.exists(patch):
-        subprocess.check_call(['git', 'apply', patch])
+        subprocess.check_call(['git', 'apply', '--ignore-whitespace', patch])
